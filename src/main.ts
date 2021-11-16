@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -8,6 +9,9 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+
+  app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
   .setTitle('Test Api documents')
